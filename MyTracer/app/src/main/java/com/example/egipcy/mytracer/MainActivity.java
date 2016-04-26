@@ -15,6 +15,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Loca
     Button btn_tracking;
 
     LocationManager lm;
+    TraceView traceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -24,6 +25,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Loca
 
         this.btn_tracking = (Button) findViewById(R.id.btn_tracking);
         this.btn_tracking.setOnClickListener(this);
+
+        this.traceView = (TraceView)findViewById(R.id.traceView);
     }
 
     @Override
@@ -69,6 +72,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Loca
     @Override
     public void onLocationChanged(Location location)
     {
+        this.traceView.add_speed(location.getSpeed()*3.6f);
     }
 
     @Override

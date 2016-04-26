@@ -10,6 +10,7 @@ import android.view.View;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class TraceView extends View
 {
@@ -33,6 +34,7 @@ public class TraceView extends View
 
     public void init()
     {
+        this.speed_samples = new LinkedList<Float>();
     }
 
     public void onDraw(Canvas canvas)
@@ -46,4 +48,14 @@ public class TraceView extends View
     {
         return true;
     }
+
+    public void add_speed(float speed_sample)
+    {
+        this.speed_samples.offer(speed_sample);
+
+        if(this.speed_samples.size() > 100)
+            this.speed_samples.poll();
+    }
+
+    private Queue<Float> speed_samples;
 }
