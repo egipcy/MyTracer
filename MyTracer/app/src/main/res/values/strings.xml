@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyTracer</string>
+
+    <string name="inactive">Start tracking</string>
+    <string name="active">Stop tracking</string>
+
+    <string name="action_settings">Settings</string>
+
+    <item name="black" type="color">#FF000000</item>
+    
+</resources>
