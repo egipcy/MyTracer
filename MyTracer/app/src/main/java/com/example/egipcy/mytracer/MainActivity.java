@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements View.OnClickListener, LocationListener
 {
@@ -16,6 +17,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Loca
 
     LocationManager lm;
     TraceView traceView;
+    TextView tv_current_speed;
+    TextView tv_average_speed;
+    TextView tv_overall_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -27,6 +31,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Loca
         this.btn_tracking.setOnClickListener(this);
 
         this.traceView = (TraceView)findViewById(R.id.traceView);
+
+        this.tv_current_speed = (TextView) findViewById(R.id.tv_current_speed);
+        this.tv_average_speed = (TextView) findViewById(R.id.tv_average_speed);
+        this.tv_overall_time = (TextView) findViewById(R.id.tv_overall_time);
     }
 
     @Override
@@ -73,6 +81,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Loca
     public void onLocationChanged(Location location)
     {
         this.traceView.add_speed(location.getSpeed()*3.6f);
+
+        this.tv_current_speed.setText("Current Speed: " + this.traceView.getCurrent_speed() + " km/h");
+        this.tv_average_speed.setText("Average Speed: " + this.traceView.getAverage_speed() + " km/h");
+        this.tv_overall_time.setText("Overall Time: " + this.traceView.getOverall_time() + " s");
     }
 
     @Override

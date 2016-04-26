@@ -44,6 +44,9 @@ public class TraceView extends View
 
         this.p_red = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.p_red.setColor(0xFFFF0000);
+
+        this.overall_time = 0;
+        this.current_speed = 0.f;
     }
 
     public void onDraw(Canvas canvas)
@@ -87,6 +90,9 @@ public class TraceView extends View
 
         if(this.speed_samples.size() > 100)
             this.speed_samples.poll();
+
+        this.overall_time++;
+        this.current_speed = speed_sample;
     }
 
     public float getAverage_speed()
@@ -100,9 +106,22 @@ public class TraceView extends View
         return x / this.speed_samples.size();
     }
 
+    public float getCurrent_speed()
+    {
+        return this.current_speed;
+    }
+
+    public int getOverall_time()
+    {
+        return this.overall_time;
+    }
+
     private Queue<Float> speed_samples;
 
     private Paint p_white;
     private Paint p_green;
     private Paint p_red;
+
+    private int overall_time;
+    private float current_speed;
 }
