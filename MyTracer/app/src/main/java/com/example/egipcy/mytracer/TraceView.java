@@ -35,13 +35,17 @@ public class TraceView extends View
     public void init()
     {
         this.speed_samples = new LinkedList<Float>();
+
+        this.p_white = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.p_white.setColor(0xFFFFFFFF);
     }
 
     public void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
 
-
+        for(int i=1; i<=6; i++)
+            canvas.drawRect(new Rect(0,i*150,900,i*150+2), this.p_white);
     }
 
     public boolean onTouchEvent(MotionEvent event)
@@ -58,4 +62,6 @@ public class TraceView extends View
     }
 
     private Queue<Float> speed_samples;
+
+    private Paint p_white;
 }
