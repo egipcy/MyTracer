@@ -46,8 +46,4 @@ public class TraceView extends View
     {
         return true;
     }
-
-    public void add_speed(float speed_sample)
-    {
-    }
 }
