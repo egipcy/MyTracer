@@ -38,6 +38,12 @@ public class TraceView extends View
 
         this.p_white = new Paint(Paint.ANTI_ALIAS_FLAG);
         this.p_white.setColor(0xFFFFFFFF);
+
+        this.p_green = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.p_green.setColor(0xFF00FF00);
+
+        this.p_red = new Paint(Paint.ANTI_ALIAS_FLAG);
+        this.p_red.setColor(0xFFFF0000);
     }
 
     public void onDraw(Canvas canvas)
@@ -46,6 +52,28 @@ public class TraceView extends View
 
         for(int i=1; i<=6; i++)
             canvas.drawRect(new Rect(0,i*150,900,i*150+2), this.p_white);
+
+        if(this.speed_samples.size() > 1)
+        {
+            Iterator it = this.speed_samples.iterator();
+
+            float prec = (float) it.next();
+            float suiv;
+            for (int i = 1; it.hasNext(); i++)
+            {
+                suiv = (float) it.next();
+                canvas.drawLine((i - 1) * 9, 900 - prec * 15, i * 9, 900 - suiv * 15, this.p_green);
+                prec = suiv;
+            }
+
+            if(this.speed_samples.size() == 100)
+            {
+                int average_speed = Math.round(this.getAverage_speed());
+                canvas.drawLine(0, 900 - average_speed * 15, 900, 900 - average_speed * 15, this.p_red);
+            }
+        }
+
+        invalidate();
     }
 
     public boolean onTouchEvent(MotionEvent event)
@@ -61,7 +89,20 @@ public class TraceView extends View
             this.speed_samples.poll();
     }
 
+    public float getAverage_speed()
+    {
+        Iterator it = this.speed_samples.iterator();
+        float x = 0.f;
+
+        while(it.hasNext())
+            x += (float)it.next();
+
+        return x / this.speed_samples.size();
+    }
+
     private Queue<Float> speed_samples;
 
     private Paint p_white;
+    private Paint p_green;
+    private Paint p_red;
 }
